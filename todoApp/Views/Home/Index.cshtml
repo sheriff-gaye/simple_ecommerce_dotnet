@@ -1,0 +1,47 @@
+﻿@model List<Product>
+
+@section title {
+    <h2>Store</h2>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        @TempData["Success"]
+        <button class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<form method="get" class="row mb-4">
+    <div class="col-md-4">
+        <input name="search" value="@ViewBag.Search" class="form-control" placeholder="Search products..." />
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary">Search</button>
+        <a asp-action="Index" class="btn btn-secondary">Reset</a>
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-action="Cart" class="btn btn-dark">🛒 View Cart</a>
+    </div>
+</form>
+
+<div class="row g-4">
+@foreach (var p in Model)
+{
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">@p.ProductName</h5>
+                <p class="text-muted">@p.Category?.Name</p>
+                <h6>$@p.Price</h6>
+                <p>Stock: @p.Quantity</p>
+
+                <form asp-action="AddToCart" method="post">
+                    <input type="hidden" name="id" value="@p.ProductId" />
+                    <button class="btn btn-success w-100">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+</div>

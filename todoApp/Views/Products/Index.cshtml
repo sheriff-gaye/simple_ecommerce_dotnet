@@ -1,0 +1,49 @@
+@model List<Product>
+
+@section title {
+<h2>Products</h2>
+
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        @TempData["Success"]
+        <button class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<a asp-action="Create" class="btn btn-success mb-3">+ Add Product</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th width="160">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@p.ProductId</td>
+            <td>@p.ProductName</td>
+            <td>@p.Category?.Name</td>
+            <td>$@p.Price</td>
+            <td>@p.Quantity</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@p.ProductId" class="btn btn-sm btn-primary">Edit</a>
+
+                <form asp-action="Delete" asp-route-id="@p.ProductId" method="post" style="display:inline"
+                      onsubmit="return confirm('Delete this product?');">
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

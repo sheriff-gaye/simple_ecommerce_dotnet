@@ -1,0 +1,46 @@
+@model List<CartItem>
+
+@section title {
+    <h2>Your Cart</h2>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Cart is empty.</div>
+    <a asp-action="Index" class="btn btn-primary">Back to Store</a>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>$@item.Price</td>
+                <td>@item.Quantity</td>
+                <td>$@(item.Price * item.Quantity)</td>
+                <td>
+                    <form asp-action="RemoveFromCart" method="post">
+                        <input type="hidden" name="id" value="@item.ProductId" />
+                        <button class="btn btn-sm btn-danger">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <h4 class="text-end">Total: $@CartRepository.Total()</h4>
+
+    <a asp-action="Index" class="btn btn-secondary">Continue Shopping</a>
+}
