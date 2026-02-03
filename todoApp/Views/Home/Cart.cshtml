@@ -22,29 +22,32 @@ else
             </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.ProductName</td>
-                <td>$@item.Price</td>
-                <td>@item.Quantity</td>
-                <td>$@(item.Price * item.Quantity)</td>
-                <td>
-    <div class="d-flex gap-2">
-        <form asp-action="DecrementQty" method="post">
-            <input type="hidden" name="id" value="@item.ProductId" />
-            <button type="submit" class="btn btn-sm btn-danger">−</button>
-        </form>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>$@item.Price</td>
+                    <td>@item.Quantity</td>
 
-        <form asp-action="IncrementQty" method="post">
-            <input type="hidden" name="id" value="@item.ProductId" />
-            <button type="submit" class="btn btn-sm btn-success">+</button>
-        </form>
-    </div>
-</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <form asp-action="DecrementQty" method="post">
+                                <input type="hidden" name="id" value="@item.ProductId" />
+                                <button type="submit" class="btn btn-sm btn-danger">−</button>
+                            </form>
 
-            </tr>
-        }
+                            <form asp-action="IncrementQty" method="post">
+                                <input type="hidden" name="id" value="@item.ProductId" />
+                                <button type="submit" class="btn btn-sm btn-success">+</button>
+                            </form>
+
+                        </div>
+                    </td>
+
+                    <td>$@(item.Price* item.Quantity)</td>
+
+                </tr>
+            }
         </tbody>
     </table>
 
