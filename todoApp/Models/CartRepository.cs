@@ -34,5 +34,30 @@ public static class CartRepository
         if (item != null) _cart.Remove(item);
     }
 
+    public static void IncreaseQuantity(int productId)
+    {
+        var item = _cart.FirstOrDefault(x => x.ProductId == productId);
+        if (item != null)
+        {
+            item.Quantity++;
+        }
+    }
+public static void DecreaseQuantity(int productId)
+{
+    var item = _cart.FirstOrDefault(x => x.ProductId == productId);
+
+    if (item == null) return;
+
+    if (item.Quantity > 1)
+    {
+        item.Quantity--;
+    }
+    else
+    {
+        _cart.Remove(item);
+    }
+}
+
+
     public static decimal Total() => _cart.Sum(x => x.Price * x.Quantity);
 }

@@ -4,6 +4,12 @@
 
 }
 
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
 <form asp-action="Save" method="post">
 
     <input type="hidden" asp-for="ProductId"/>
@@ -32,6 +38,3 @@
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}

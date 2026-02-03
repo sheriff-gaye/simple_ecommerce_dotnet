@@ -11,13 +11,13 @@ public class HomeController : Controller
 
         if (!string.IsNullOrWhiteSpace(search))
         {
-           products = products
-    .Where(p =>
-        p.ProductName.Contains(search, StringComparison.OrdinalIgnoreCase)
-        || (p.Category != null &&
-            p.Category.Name.Contains(search, StringComparison.OrdinalIgnoreCase))
-    )
-    .ToList();
+            products = products
+     .Where(p =>
+         p.ProductName.Contains(search, StringComparison.OrdinalIgnoreCase)
+         || (p.Category != null &&
+             p.Category.Name.Contains(search, StringComparison.OrdinalIgnoreCase))
+     )
+     .ToList();
 
         }
 
@@ -49,4 +49,30 @@ public class HomeController : Controller
         CartRepository.Remove(id);
         return RedirectToAction("Cart");
     }
+
+
+    [HttpPost]
+    public IActionResult IncrementQty(int id)
+    {
+    CartRepository.IncreaseQuantity(id);
+    return RedirectToAction("Cart");
+    }
+
+    [HttpPost]
+    public IActionResult DecrementQty(int id)
+    {
+    CartRepository.DecreaseQuantity(id);
+    return RedirectToAction("Cart");
+    }
+
+
+
+
+
+
+
+
+    
+    
+      
 }

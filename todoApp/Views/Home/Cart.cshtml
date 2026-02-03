@@ -30,11 +30,19 @@ else
                 <td>@item.Quantity</td>
                 <td>$@(item.Price * item.Quantity)</td>
                 <td>
-                    <form asp-action="RemoveFromCart" method="post">
-                        <input type="hidden" name="id" value="@item.ProductId" />
-                        <button class="btn btn-sm btn-danger">Remove</button>
-                    </form>
-                </td>
+    <div class="d-flex gap-2">
+        <form asp-action="DecrementQty" method="post">
+            <input type="hidden" name="id" value="@item.ProductId" />
+            <button type="submit" class="btn btn-sm btn-danger">−</button>
+        </form>
+
+        <form asp-action="IncrementQty" method="post">
+            <input type="hidden" name="id" value="@item.ProductId" />
+            <button type="submit" class="btn btn-sm btn-success">+</button>
+        </form>
+    </div>
+</td>
+
             </tr>
         }
         </tbody>
